@@ -5,6 +5,7 @@
 body {
   margin: 0;
   background: darkslategray;
+  font-family: arial, serif;
 }
 
 .calculator-grid {

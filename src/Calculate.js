@@ -1,6 +1,6 @@
-import React from 'react';
-
-const Evaluate = (props) => {
+import React from 'react'
+// common calculation rules
+const Calculate = (props) => {
         const { currentOperand, previousOperand, operation } = props;
         const prev = parseFloat(previousOperand)
         const current = parseFloat(currentOperand)
@@ -24,4 +24,4 @@ const Evaluate = (props) => {
         return computation.toString();
 };
 
-export default Evaluate;
+export default Calculate;

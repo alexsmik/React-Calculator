@@ -1,5 +1,6 @@
 import {ACTIONS} from "./Actions";
-import evaluate from "./Evaluate";
+import calculate from "./Calculate";
+// reducer
 function CalcReducer(state, { type, payload }) {
     switch (type) {
         case ACTIONS.ADD_DIGIT:
@@ -16,7 +17,6 @@ function CalcReducer(state, { type, payload }) {
             if (payload.digit === "." && state.currentOperand.includes(".")) {
                 return state
             }
-
             return {
                 ...state,
                 currentOperand: `${state.currentOperand || ""}${payload.digit}`,
@@ -25,14 +25,12 @@ function CalcReducer(state, { type, payload }) {
             if (state.currentOperand == null && state.previousOperand == null) {
                 return state
             }
-
             if (state.currentOperand == null) {
                 return {
                     ...state,
                     operation: payload.operation,
                 }
             }
-
             if (state.previousOperand == null) {
                 return {
                     ...state,
@@ -41,16 +39,15 @@ function CalcReducer(state, { type, payload }) {
                     currentOperand: null,
                 }
             }
-
             return {
                 ...state,
-                previousOperand: evaluate(state),
+                previousOperand: calculate(state),
                 operation: payload.operation,
                 currentOperand: null,
             }
         case ACTIONS.CLEAR:
             return {}
-        case ACTIONS.DELETE_DIGIT:
+        case ACTIONS.DELETE:
             if (state.overwrite) {
                 return {
                     ...state,
@@ -62,12 +59,11 @@ function CalcReducer(state, { type, payload }) {
             if (state.currentOperand.length === 1) {
                 return { ...state, currentOperand: null }
             }
-
             return {
                 ...state,
                 currentOperand: state.currentOperand.slice(0, -1),
             }
-        case ACTIONS.EVALUATE:
+        case ACTIONS.CALCULATE:
             if (
                 state.operation == null ||
                 state.currentOperand == null ||
@@ -75,13 +71,12 @@ function CalcReducer(state, { type, payload }) {
             ) {
                 return state
             }
-
             return {
                 ...state,
                 overwrite: true,
                 previousOperand: null,
                 operation: null,
-                currentOperand: evaluate(state),
+                currentOperand: calculate(state),
             }
     }
 }

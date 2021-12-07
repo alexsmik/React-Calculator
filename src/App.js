@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
-import CalcReducer from "./CalcReducer";
+import reducer from "./CalcReducer";
 import {ACTIONS} from "./Actions";
 import "./styles.css";
 
@@ -16,7 +16,7 @@ function formatOperand(operand) {
 }
 
 function App() {
-    const [ operations, dispatch ] = useReducer( CalcReducer, {} );
+    const [ operations, dispatch ] = useReducer( reducer, {} );
     const { currentOperand, previousOperand, operation } = operations;
     return (
     <div className="calculator-grid">
@@ -32,7 +32,7 @@ function App() {
       >
         AC
       </button>
-      <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>
+      <button onClick={() => dispatch({ type: ACTIONS.DELETE })}>
         DEL
       </button>
       <OperationButton operation="÷" dispatch={dispatch} />
@@ -52,7 +52,7 @@ function App() {
       <DigitButton digit="0" dispatch={dispatch} />
       <button
         className="span-two"
-        onClick={() => dispatch({ type: ACTIONS.EVALUATE })}
+        onClick={() => dispatch({ type: ACTIONS.CALCULATE })}
       >
         =
       </button>
