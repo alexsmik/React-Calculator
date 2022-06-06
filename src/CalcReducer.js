@@ -1,6 +1,6 @@
 import {ACTIONS} from "./Actions";
 import calculate from "./Calculate";
-// reducer
+
 function CalcReducer(state, { type, payload }) {
     switch (type) {
         case ACTIONS.ADD_DIGIT:
